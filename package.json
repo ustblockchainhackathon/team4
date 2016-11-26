@@ -12,7 +12,8 @@
     "eris-db": "0.15.0",
     "eris-contracts":"0.13.3",
     "jwt-simple": "0.5.1",
-    "q": "1.4.1"
+    "q": "1.4.1",
+    "fs": "latest"
   },
   "engines": {
 	"node": "4.6.0"
