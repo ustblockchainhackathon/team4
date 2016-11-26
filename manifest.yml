@@ -1,0 +1,9 @@
+---
+applications:
+- name: USTHackathon
+  instances: 1
+  memory: 512M
+  host: USTHackathon
+  domain: mybluemix.net
+  path: .
+  command: node app.js
