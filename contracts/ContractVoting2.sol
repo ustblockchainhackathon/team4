@@ -1,6 +1,5 @@
 contract VotingRecord {
-    /* Public variables of the token */
-    string public standard = 'Token 0.1';
+    /* Public variables */
     string public electionName;
     address owner;
     uint256 candidatesNumber;
