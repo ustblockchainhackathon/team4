@@ -8,8 +8,8 @@ app.controller("viewCandidatesCtrl",['$http', '$window', '$location', function($
 		candidateAddress:"",
 		account: {
 			address:"",
-			pubkey:"",
-			privkey:""
+			pubKey:"",
+			privKey:""
 		}
 	};
 
@@ -26,6 +26,7 @@ app.controller("viewCandidatesCtrl",['$http', '$window', '$location', function($
 		},
 
 		vote : function() {
+			console.log(vm.myVote)
 			$http.post(urlVote, vm.myVote)
 			.then(function(respuesta) {
 				console.log("Obteniendo votos");
