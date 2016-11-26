@@ -11,4 +11,10 @@ var app = angular.module('SecureVoteApp', [ "ngRoute" ]).config(function($routeP
 			}
 		}
 	})
+
+	.when("/selectCandidate", {    			
+		controller: "viewCandidatesCtrl",           
+		controllerAs: "vm",           
+		templateUrl: "autentication.html"        
+	})
 })	
