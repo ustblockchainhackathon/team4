@@ -11,7 +11,7 @@ contract VotingRecord {
     mapping (address => uint256) public candidatesPool;
     mapping (address => bytes32) public candidatesNames;
 
-    /* XXX */
+    /* event (vote) constructor - definition */
     event Voted(address indexed from, address indexed to, bytes32 nameCandidate);
 
     /* Initializes contract with initial supply tokens to the creator of the contract */
