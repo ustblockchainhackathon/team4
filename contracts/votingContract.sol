@@ -1,5 +1,3 @@
-pragma solidity ^0.4.2;
-
 contract VotingRecord {
     /* Public variables of the token */
     string public standard = 'Token 0.1';
