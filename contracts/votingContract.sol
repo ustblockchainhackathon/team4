@@ -51,7 +51,7 @@ contract VotingRecord {
         if(votersPool[_from] != 1) throw; //voter can vote
         if(candidatesNames[_to] != "") throw; //voting for valid candidate
         votersPool[msg.sender] -= 1;
-        votersPool[_to] += 1; 
+        candidatesPool[_to] += 1; 
         Voted(msg.sender, _to, candidatesNames[_to]);
     }
     
