@@ -4,7 +4,14 @@ app.controller("viewCandidatesCtrl",['$http', '$window', '$location', function($
 	var urlGetCandidates = 'http://localhost:6001/getCandidates';
 	var urlVote = 'http://localhost:6001/vote';
 
-	vm.myVote = {};
+	vm.myVote = {
+		candidateAddress:"",
+		account: {
+			address:"",
+			pubkey:"",
+			privkey:""
+		}
+	};
 
 	vm.funciones = {
 
