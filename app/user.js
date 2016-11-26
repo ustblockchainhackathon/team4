@@ -56,6 +56,7 @@ module.exports = {
     vote: function(req,res,erisdb,contractAddress) {
       var account = req.body.account;
       var candidateAddress = req.body.candidateAddress;
+      console.log(req.body);
 
       var pipe = new erisContracts.pipes.DevPipe(erisdb, [account]); /* Create a new pipe*/
       contractManager = erisContracts.newContractManager(pipe); /*Create a new contract object using the pipe */
@@ -79,9 +80,6 @@ module.exports = {
           })
         }
       })
-    },
-    getResults : function(req,res) {
-      return res.json({success: true, candidates: [{candidate: 'Candidato1',votes:1}, {candidate:'Candidato2',votes:1}]});
     },
   }
 
