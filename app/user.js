@@ -53,20 +53,20 @@ module.exports = {
     },
 
     // Info.
-    vote: function(req,res,erisdb,contractAddress) {
+    vote: function(req,res,erisdb,contractAddress,compiledContract) {
       var account = req.body.account;
       var candidateAddress = req.body.candidateAddress;
-      console.log(req.body);
-
       var pipe = new erisContracts.pipes.DevPipe(erisdb, [account]); /* Create a new pipe*/
+
       contractManager = erisContracts.newContractManager(pipe); /*Create a new contract object using the pipe */
-      contractManager.at(contractAddress,function(error, contract){
+      var myContractFactory = contractManager.newContractFactory(JSON.parse(compiledContract.contracts.VotingRecord.interface));
+      myContractFactory.at(contractAddress,function(error, contract){
         if(error){
           console.log(error);
         }else{
-          var contractInstance = contract;
-          contractInstance.vote(
-          { from: account.address,
+          contract.voting(
+            account.address,candidateAddress,
+          { from: account.address },
             function (err, txHash){
               if(err){
                 console.log(err)
@@ -77,7 +77,7 @@ module.exports = {
                   });
               }
             }
-          })
+          )
         }
       })
     },
