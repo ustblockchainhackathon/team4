@@ -3,7 +3,6 @@
 // ========
 var jwt         = require('jwt-simple');
 // Promises
-var q = require('q')
 
 module.exports = {
    /*
@@ -20,7 +19,31 @@ module.exports = {
     */
     getCandidates : function(req,res,contractInstance) {
       //contractInstance.getCandidatesResults();
-      //contractInstance.
+      
+      contractInstance.getNumberOfCandidates(function (err,numberOfCandidates)
+      {
+        if(err) {
+          console.log(err);
+        }else {
+          console.log("Number of candidates:" + numberOfCandidates);
+          var promises = [];
+          
+          for(var i = 0; i < numberOfCandidates;i++){
+              promises.push(i);
+          }
+          Promise.all(
+              promises.map(function(x,i){
+              return getCandidateInternal (contractInstance,i);
+            })
+          ).then(function (result) {
+            console.log("Candidatos: " + result);
+          }).catch(function (err)
+          {
+            console.log(err);
+          })
+        }
+      })
+
       return res.json(
         { success: true, 
           voteName: "Votacion 1",
@@ -47,3 +70,19 @@ module.exports = {
     },
   }
 
+function getCandidateInternal (contactInstance,index)
+{
+  return new Promise(function(resolve,reject){
+    contactInstance.getCandidateResults(index,function (err,candidate)
+    {
+      {
+        if(err) {
+          console.log(err);
+          return reject (err);
+        }else {
+          return resolve(candidate);
+        }
+      }
+    })  
+  })
+}

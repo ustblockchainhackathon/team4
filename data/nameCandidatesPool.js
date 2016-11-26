@@ -1,1 +1,1 @@
-[“TEAM_000“, “TEAM_001“, “TEAM_002“, “TEAM_003“, “TEAM_004“, “TEAM_005“, “TEAM_006“, “TEAM_007“, “TEAM_008“, “TEAM_009”]
+[appLib.convertToHex("Team 000"), appLib.convertToHex("Team 001"),appLib.convertToHex("Team 002"),appLib.convertToHex("Team 003"),appLib.convertToHex("Team 004"),appLib.convertToHex("Team 005"),appLib.convertToHex("Team 006"),appLib.convertToHex("Team 007"),appLib.convertToHex("Team 008"),appLib.convertToHex("Team 009")], 
