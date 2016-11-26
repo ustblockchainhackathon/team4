@@ -85,6 +85,7 @@ var app = express();
 app.use(cors());
 app.engine('html', require('ejs').renderFile);
 app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.json());
 app.use(express.static(__dirname + '/public'));
 
 // Finishing configuration of the app web container
@@ -104,5 +105,6 @@ app.get('/getCandidates', function (req, res)
 
 app.post('/vote', function (req, res) 
 {
-      userLib.vote(req,res);   
+      console.log(req.body);
+      userLib.vote(req,res,erisdb,erisInstance.address,compiledContract);   
 });

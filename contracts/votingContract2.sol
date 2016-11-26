@@ -6,6 +6,7 @@ contract VotingRecord {
     uint256 candidatesNumber;
     uint256 totalVoteCount;
     uint256 totalVoters;
+    uint8 electionActive;
 
     /* This creates an array with all Voters */
     mapping (address => uint8) public votersPool;
@@ -16,9 +17,6 @@ contract VotingRecord {
     /* voting event constructor */
     event Voted(address voterAddress, address candidateAddress, bytes32 nameCandidate);
     
-    /* closing election period */
-    event Closure(string dateIni, string dateEnd, string winnerName, address winnerAddress);
-
     /* Initializes contract with initial supply tokens to the creator of the contract */
     function VotingRecord(
         address [] votersPool_,
@@ -48,6 +46,8 @@ contract VotingRecord {
         }
         
         electionName = name_; //storing name of election
+        
+        electionActive = 1; //election is active
             
         }
 
@@ -56,6 +56,7 @@ contract VotingRecord {
         if(votersPool[_from] != msg.sender) throw; //valid voter
         if(votersPool[_from] != 1) throw; //voter can vote
         if(candidatesNames[_to] != "") throw; //voting for valid candidate
+        if(electionActive != 1) throw; //if election close stop
         votersPool[msg.sender] -= 1; //control for voting uniquiness
         votersPool[_to] += 1; //adding vote to candidate
         totalVoteCount += 1; //tracking votes for auditing
@@ -66,6 +67,11 @@ contract VotingRecord {
     function getNumberOfCandidates () constant returns (uint256 candidateNumber_) {
         return candidatesNumber;
         
+    }
+    
+    function electionStop (address _from) {
+        if (owner != msg.sender) throw; //only creator can close election
+        electionActive == 0;
     }
     
     function getCandidateResults (uint8 candidateLocator_) constant returns (bytes32 candidateName, address candidateAddress, uint256 candidateVotes){
@@ -87,11 +93,11 @@ contract VotingRecord {
         totalNonVoters = 0;
         sumCheck = true; //assumming OK check sum
 
-        for (uint8 s = 0; s < candidatesNumber; s++) {
+        for (uint8 s = 0; s < candidatesNumber; s++) { //calculating total votes (from candidates)
             totalVotesCandidates += candidatesPool[s];
         }
         
-        for (uint8 m = 0; m < totalVoters; m++){
+        for (uint8 m = 0; m < totalVoters; m++){ //calculating total voters and non-voters (from voters)
             if (votersPool[m] == 0) totalVotesVoters += 1;
             if (votersPool[m] == 1) totalNonVoters += 1;
         }
