@@ -102,7 +102,7 @@ app.get('/getCandidates', function (req, res)
       userLib.getCandidates(req,res,erisInstance);   
 });
 
-app.get('/vote', function (req, res) 
+app.post('/vote', function (req, res) 
 {
       userLib.vote(req,res);   
 });
