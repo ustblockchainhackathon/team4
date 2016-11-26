@@ -1,23 +1,8 @@
-<main id="user">
+<h1>Autenticación</h1>
 
-<form class="form-horizontal" ng-submit="vm.funciones.selectCandidate()">
+<form class="form-horizontal">
   <fieldset>
-    <legend>Votación</legend>
-    <div class="form-group">
-      <label class="col-lg-2 control-label">Candidatos</label>
-      <div class="col-lg-10">
-
-      	<div ng-repeat="candidate in vm.candidates.data.candidates">
-	
-        <div class="radio">
-          <label>
-            <input name="optionsRadios" id="{{candidate.candidate}}" value="{{candidate.candidate}}" checked="" type="radio">
-            {{candidate.candidate}}
-          </label>
-        </div>
-		</div>
-
-    </div>
+    <legend>Legend</legend>
 
     <div class="form-group">
       <label for="address" class="col-lg-2 control-label">Dirección</label>
@@ -46,5 +31,3 @@
     </div>
   </fieldset>
 </form>
-
-</main>

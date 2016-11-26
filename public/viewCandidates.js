@@ -1,7 +1,7 @@
-app.controller("viewCandidatesCtrl",['$http', function($http){
+app.controller("viewCandidatesCtrl",['$http', '$window', '$location', function($http, $window, $location ){
 	var vm = this;
 	vm.candidates = [];
-	var url = 'http://usthackathon.mybluemix.net/getCandidates';
+	var url = 'http://localhost:6001/getCandidates';
 
 	vm.funciones = {
 
@@ -13,6 +13,10 @@ app.controller("viewCandidatesCtrl",['$http', function($http){
 			}).catch(error => {
 				console.log("Error obteniendo candidatos");
 			})	
+		},
+
+		selectCandidate : function() {
+			$window.location.href='#/selectCandidate';
 		}
 	}
 	
