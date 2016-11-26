@@ -34,6 +34,7 @@ erisdb.accounts().getAccounts((err, res) => { console.log(res.accounts.map(item 
     BALANCE: item.balance
   })
 })) });
+var compiledContract = 'contratoCompilado';
 
 /* Compile the Greeter Contract
 var compiledContract = solc.compile(votingRecordSource);
@@ -79,7 +80,7 @@ var appEnv = cfenv.getAppEnv();
 
 // Configure the app web container
 var app = express();
-app.set('view engine', 'ejs');
+app.engine('html', require('ejs').renderFile);
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static(__dirname + '/public'));
 
@@ -90,7 +91,7 @@ console.log("#### Server listening on port " + appEnv.port);
 // Home page
 app.get('/', function (req, res) 
 {
-      res.render('index', {compiledContract: compiledContract});   
+      res.render('index.html', {compiledContract: compiledContract});   
 });
 
 app.get('/getCandidates', function (req, res) 

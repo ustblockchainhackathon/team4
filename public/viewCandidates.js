@@ -14,5 +14,5 @@ app.controller("viewCandidatesCtrl",['cfactory', function(cfactory) {
 		}
 	}
 	
-	vm.funciones.getCandidates();
+	//vm.funciones.getCandidates();
 }]);
