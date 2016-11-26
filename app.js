@@ -17,6 +17,8 @@ var userLib = require("./app/user.js");
 var fs = require('fs');
 
 var votingRecordSource = fs.readFileSync("./contracts/votingContract.sol");
+var votingRecordSource = fs.readFileSync('./contracts/votingContract.sol', 'utf8');
+
 
 
 /*Initialize ERISDB*/
@@ -38,21 +40,19 @@ erisdb.accounts().getAccounts((err, res) => { console.log(res.accounts.map(item 
   })
 })) });
 */
-var compiledContract = 'Hola';
-/* Compile the Greeter Contract 
+
+/* Compile the Greeter Contract */
 var compiledContract = solc.compile(votingRecordSource);
-console.log("Compiled Contract:" + compiledContract.contracts.VotingRecord);*/
-//var contractFactory = contractManager.newContractFactory(JSON.parse(compiledContract.contracts.votingRecord.interface)); //parameter is abi
-//console.log("Contract Factory:" + contractFactory);
+console.log("Compiled Contract:" + compiledContract.contracts.VotingRecord);
+var contractFactory = contractManager.newContractFactory(JSON.parse(compiledContract.contracts.VotingRecord.interface)); //parameter is abi
+console.log("Contract Factory:" + contractFactory);
 
 /* Send the contract 
 contractFactory.new.apply(contractFactory, ["Hello World",
  {from: account, data:compiledContract.contracts.greeter.bytecode}, (err, contractInstance)=> {
   console.log(contractInstance.address);
  }]);
-*/
-
-
+ */
 
 // Load the appropriate modules for the app
 var cfenv = require("cfenv");
