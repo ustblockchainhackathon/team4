@@ -16,7 +16,14 @@ app.controller("viewCandidatesCtrl",['$http', '$window', '$location', function($
 		},
 
 		selectCandidate : function() {
-			$window.location.href='#/selectCandidate';
+			$http.get(url)
+			.then(function(respuesta) {
+				console.log("Obteniendo candidatos");
+				vm.candidates = respuesta;
+				$window.location.href='#/results';
+			}).catch(error => {
+				console.log("Error obteniendo candidatos");
+			})
 		}
 	}
 	

@@ -2,7 +2,7 @@
 
 <form class="form-horizontal" ng-submit="vm.funciones.selectCandidate()">
   <fieldset>
-    <legend>Votación</legend>
+    <legend>{{vm.candidates.data.voteName}}</legend>
     <div class="form-group">
       <label class="col-lg-2 control-label">Candidatos</label>
       <div class="col-lg-10">
@@ -11,8 +11,8 @@
 	
         <div class="radio">
           <label>
-            <input name="optionsRadios" id="{{candidate.candidate}}" value="{{candidate.candidate}}" checked="" type="radio">
-            {{candidate.candidate}}
+            <input name="optionsRadios" id="{{candidate.candidate}}" value="{{candidate.candidate.address}}" checked="" type="radio">
+            {{candidate.candidate.name}}
           </label>
         </div>
 		</div>
