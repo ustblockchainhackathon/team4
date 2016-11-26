@@ -14,12 +14,15 @@ var account = accounts[0].address;
 
 var cors = require('cors');
 var userLib = require("./app/user.js");
+var appLib = require("./app/lib.js");
 var fs = require('fs');
 
-var votingRecordSource = fs.readFileSync("./contracts/votingContract.sol");
 var votingRecordSource = fs.readFileSync('./contracts/votingContract.sol', 'utf8');
-
-
+var voters = "";
+var candidates = "";
+var candidatesAddress = "";
+var candidatesName = "";
+var erisInstance= "";
 
 /*Initialize ERISDB*/
 erisdb = erisDbFactory.createInstance(nodes[0]);
@@ -32,27 +35,34 @@ erisdb.start(function(error){
 pipe = new erisContracts.pipes.DevPipe(erisdb, accounts); /* Create a new pipe*/
 contractManager = erisContracts.newContractManager(pipe); /*Create a new contract object using the pipe */
 
-/*Get account list
-erisdb.accounts().getAccounts((err, res) => { console.log(res.accounts.map(item => {
-  return ({
-    ADDR: item.address,
-    BALANCE: item.balance
-  })
-})) });
-*/
-
 /* Compile the Greeter Contract */
 var compiledContract = solc.compile(votingRecordSource);
 console.log("Compiled Contract:" + compiledContract.contracts.VotingRecord);
 var contractFactory = contractManager.newContractFactory(JSON.parse(compiledContract.contracts.VotingRecord.interface)); //parameter is abi
 console.log("Contract Factory:" + contractFactory);
 
-/* Send the contract 
-contractFactory.new.apply(contractFactory, ["Hello World",
- {from: account, data:compiledContract.contracts.greeter.bytecode}, (err, contractInstance)=> {
-  console.log(contractInstance.address);
- }]);
- */
+/* Send the contract */
+    contractFactory.new.apply(contractFactory, 
+    [  // Votantes
+      ["A99287FE0DAC4E8145C857EA65E9EDE1560A2DB2","EF61778AC2FC56F4CBCC3C82605CCD77D37595F6"], 
+      // Votados
+      ["A99287FE0DAC4E8145C857EA65E9EDE1560A2DB2"], 
+      // Nombres votados
+      [appLib.convertToHex("Team 4")], 
+      // Nombre votación
+      "Votación 1", 
+      { from: account, 
+        data:compiledContract.contracts.VotingRecord.bytecode}, 
+        (err, contractInstance)=> {
+          if(err){
+            console.log(err)
+          }else{
+            erisInstance = contractInstance;
+            console.log(contractInstance.address);
+          }
+      }
+    ]);
+
 
 // Load the appropriate modules for the app
 var cfenv = require("cfenv");
@@ -89,7 +99,7 @@ app.get('/', function (req, res)
 
 app.get('/getCandidates', function (req, res) 
 {
-      userLib.getCandidates(req,res);   
+      userLib.getCandidates(req,res,erisInstance);   
 });
 
 app.get('/vote', function (req, res) 
