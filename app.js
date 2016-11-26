@@ -105,5 +105,6 @@ app.get('/getCandidates', function (req, res)
 
 app.post('/vote', function (req, res) 
 {
+      console.log(req.body);
       userLib.vote(req,res,erisdb,erisInstance.address,compiledContract);   
 });

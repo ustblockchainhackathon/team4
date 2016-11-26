@@ -1,8 +1,11 @@
 app.controller("viewCandidatesCtrl",['$http', '$window', '$location', function($http, $window, $location ){
 	var vm = this;
 	vm.candidates = [];
-	var urlGetCandidates = 'http://localhost:6001/getCandidates';
-	var urlVote = 'http://localhost:6001/vote';
+	//var urlGetCandidates = 'http://localhost:6001/getCandidates';
+	//var urlVote = 'http://localhost:6001/vote';
+	var urlGetCandidates = 'http://usthackathon.mybluemix.net/getCandidates';
+	var urlVote = 'http://usthackathon.mybluemix.net/vote';
+
 
 	vm.myVote = {};
 
