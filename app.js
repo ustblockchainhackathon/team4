@@ -11,7 +11,10 @@ var erisdbURL; /* ErisDB RPC URL */
 var pipe; /* Pipe for creating contracts */
 var contractManager;/* Contract Manager for creating contracts*/
 var account = accounts[0].address;
-var greeterSource = 'contract greeter { string greeting; function greeter(string _greeting) public { greeting = _greeting; } function greet() constant returns (string) { return greeting; } }'
+/* Contrato
+ var votingRecordSource = 'contract greeter { string votingRecord; function greeter(string _greeting) public { greeting = _greeting; } function greet() constant returns (string) { return greeting; } }'
+*/
+var userLib = require("./app/user.js");
 
 /*Initialize ERISDB*/
 erisdb = erisDbFactory.createInstance(nodes[0]);
@@ -32,13 +35,14 @@ erisdb.accounts().getAccounts((err, res) => { console.log(res.accounts.map(item 
   })
 })) });
 
-/* Compile the Greeter Contract*/
-var compiledContract = solc.compile(greeterSource);
+/* Compile the Greeter Contract
+var compiledContract = solc.compile(votingRecordSource);
 console.log("Compiled Contract:" + compiledContract)
-var contractFactory = contractManager.newContractFactory(JSON.parse(compiledContract.contracts.greeter.interface)); //parameter is abi
+var contractFactory = contractManager.newContractFactory(JSON.parse(compiledContract.contracts.votingRecord.interface)); //parameter is abi
 console.log("Contract Factory:" + contractFactory)
+*/
 
-/* Send the contract */
+/* Send the contract 
 contractFactory.new.apply(contractFactory, ["Hello World",
  {from: account, data:compiledContract.contracts.greeter.bytecode}, (err, contractInstance)=> {
   console.log(contractInstance.address);
@@ -52,7 +56,7 @@ contractFactory.new.apply(contractFactory, ["Hello World",
   }]);
 
  }]);
-
+*/
 
 
 
@@ -87,4 +91,14 @@ console.log("#### Server listening on port " + appEnv.port);
 app.get('/', function (req, res) 
 {
       res.render('index', {compiledContract: compiledContract});   
+});
+
+app.get('/getCandidates', function (req, res) 
+{
+      userLib.getCandidates(req,res);   
+});
+
+app.get('/vote', function (req, res) 
+{
+      userLib.vote(req,res);   
 });
