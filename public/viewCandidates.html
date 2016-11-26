@@ -1,8 +1,8 @@
 <main id="user">
 
-<form class="form-horizontal" ng-submit="vm.funciones.selectCandidate()">
+<form class="form-horizontal" ng-submit="vm.funciones.vote()">
   <fieldset>
-    <legend>Votación</legend>
+    <legend>{{vm.candidates.data.voteName}}</legend>
     <div class="form-group">
       <label class="col-lg-2 control-label">Candidatos</label>
       <div class="col-lg-10">
@@ -11,8 +11,8 @@
 	
         <div class="radio">
           <label>
-            <input name="optionsRadios" id="{{candidate.candidate}}" value="{{candidate.candidate}}" checked="" type="radio">
-            {{candidate.candidate}}
+            <input name="optionsRadios" id="{{candidate.candidate}}" value="{{candidate.candidate.address}}" checked="" type="radio" ng-model="vm.myVote.candidateAddress">
+            {{candidate.candidate.name}}
           </label>
         </div>
 		</div>
@@ -22,20 +22,20 @@
     <div class="form-group">
       <label for="address" class="col-lg-2 control-label">Dirección</label>
       <div class="col-lg-10">
-        <input class="form-control" id="address" type="text">
+        <input class="form-control" id="address" type="text" ng-model="vm.myVote.account.address">
       </div>
     </div>
 
     <div class="form-group">
       <label for="publickey" class="col-lg-2 control-label">Clave Pública</label>
       <div class="col-lg-10">
-        <input class="form-control" id="publickey" type="text">
+        <input class="form-control" id="publickey" type="text" ng-model="vm.myVote.account.pubKey">
       </div>
     </div>
     <div class="form-group">
       <label for="privatekey" class="col-lg-2 control-label">Clave Privada</label>
       <div class="col-lg-10">
-        <input class="form-control" id="privatekey" type="text">
+        <input class="form-control" id="privatekey" type="text" ng-model="vm.myVote.account.privKey">
       </div>
     </div>
 

@@ -1,0 +1,13 @@
+<main>
+<p class="text-primary">Estos son los resultados provisionales de {{vm.candidates.data.voteName}}</p>
+<ul class="list-group">
+<div ng-repeat="candidate in vm.candidates.data.candidates">
+
+  <li class="list-group-item">
+    <span class="badge">{{candidate.candidate.votes}}</span>
+    {{candidate.candidate.name}}
+  </li>
+
+</div>
+</ul>
+</main>
