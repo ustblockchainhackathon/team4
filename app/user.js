@@ -18,8 +18,25 @@ module.exports = {
       })
     },
     */
-    getCandidates : function(req,res) {
-      return res.json({success: true, candidates: [{candidate: 'Candidato1'}, {candidate:'Candidato2'}]});
+    getCandidates : function(req,res,contractInstance) {
+      //contractInstance.getCandidatesResults();
+      //contractInstance.
+      return res.json(
+        { success: true, 
+          voteName: "Votacion 1",
+          candidates: [
+            {candidate: {
+              name: 'Candidato1', 
+              address:'ADDRESS1', 
+              votes: 30}
+            }, 
+            {candidate: {
+              name: 'Candidato2', 
+              address:'ADDRESS2', 
+              votes: 10}
+            }
+          ]
+        });
     },
     // Info.
     vote: function(req,res) {
